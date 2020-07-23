@@ -1,1 +1,7 @@
-Hello world!
+<html>
+	<head>
+		<title>
+			Hello world! Привет мир
+		</title>
+	</head>
+</html>
