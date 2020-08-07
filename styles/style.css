@@ -1,6 +1,4 @@
-{
-  color: #005080;
-  font-size: 200%;
-  font-family: Arial, Verdana, sans-serif;
-  text-align: center;
+.title {
+    font-size: 84px;
+    margin-bottom: 30px
 }
