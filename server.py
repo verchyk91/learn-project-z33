@@ -64,13 +64,12 @@ class MyHttp(SimpleHTTPRequestHandler):
         self.respond(msg, code=404, content_type="text/plain")
 
     def respond(self, message, code=200, content_type="text/html"):
+        payload = to_bytes(message)
+
         self.send_response(code)
         self.send_header("Content-type", content_type)
-        self.send_header("Content-length", str(len(message)))
+        self.send_header("Content-length", str(len(payload)))
         self.send_header("Cache-control", f"max-age={settings.CACHE_AGE}")
         self.end_headers()
 
-        if isinstance(message, str):
-            message = message.encode()
-
-        self.wfile.write(message)
+        self.wfile.write(payload)
