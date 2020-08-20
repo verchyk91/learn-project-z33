@@ -1,21 +1,35 @@
+import traceback
 from http.server import SimpleHTTPRequestHandler
 
 import settings
+from errors import MethodNotAllowed
+from errors import NotFound
 from utils import normalize_path
+from utils import read_static
+from utils import to_bytes
 
 
 class MyHttp(SimpleHTTPRequestHandler):
     def do_GET(self):
         path = normalize_path(self.path)
 
-        if path == "/":
-            self.handle_root()
-        elif path == "hello":
-            self.handle_hello()
-        elif path == "styles" or path == "images":
-            self.handler_files(path)
-        else:
+        handlers = {
+            "/": self.handle_root,
+            "/hello/": self.handle_hello,
+            "/style/": self.handle_style,
+            "/logo/": self.handle_logo,
+            "/0/": self.handle_zde,
+        }
+
+        try:
+            handler = handlers[path]
+            handler()
+        except (NotFound, KeyError):
             self.handle_404()
+        except MethodNotAllowed:
+            self.handle_405()
+        except Exception:
+            self.handle_500()
 
     def handle_root(self):
         return super().do_GET()
@@ -33,35 +47,27 @@ class MyHttp(SimpleHTTPRequestHandler):
 
         self.respond(content)
 
-    def handler_files(self, path):
-
-        if path == "styles":
-            return self.handle_style()
-        if path == "images":
-            return self.handle_image()
+    def handle_zde(self):
+        x = 1 / 0
 
     def handle_style(self):
-        css_file = settings.PROJECT_DIR / "styles" / "style.css"
-        if not css_file.exists():
-            return self.handle_404()
-
-        with css_file.open("r") as fp:
-            css = fp.read()
-
+        css = read_static("styles/style.css")
         self.respond(css, content_type="text/css")
 
-    def handle_image(self):
-        image_file = settings.PROJECT_DIR / "images" / "xxx.png"
-        if not image_file.exists():
-            return self.handle_404()
-        with image_file.open("rb") as fp:
-            img = fp.read()
-        self.respond(img, content_type="image/png")
+    def handle_logo(self):
+        image = read_static("images/logo.svg")
+        self.respond(image, content_type="image/svg+xml")
 
     def handle_404(self):
         msg = """NOT FOUND!!!!!!!!"""
 
         self.respond(msg, code=404, content_type="text/plain")
+
+    def handle_405(self):
+        self.respond("", code=405, content_type="text/plain")
+
+    def handle_500(self):
+        self.respond(traceback.format_exc(), code=500, content_type="text/plain")
 
     def respond(self, message, code=200, content_type="text/html"):
         payload = to_bytes(message)
@@ -71,5 +77,14 @@ class MyHttp(SimpleHTTPRequestHandler):
         self.send_header("Content-length", str(len(payload)))
         self.send_header("Cache-control", f"max-age={settings.CACHE_AGE}")
         self.end_headers()
+        self.wfile.write(payload)
 
+    def respond(self, message, code=200, content_type="text/html"):
+        payload = to_bytes(message)
+
+        self.send_response(code)
+        self.send_header("Content-type", content_type)
+        self.send_header("Content-length", str(len(payload)))
+        self.send_header("Cache-control", f"max-age={settings.CACHE_AGE}")
+        self.end_headers()
         self.wfile.write(payload)
