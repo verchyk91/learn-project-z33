@@ -55,8 +55,8 @@ class MyHttp(SimpleHTTPRequestHandler):
         self.respond(css, content_type="text/css")
 
     def handle_logo(self):
-        image = read_static("images/logo.svg")
-        self.respond(image, content_type="image/svg+xml")
+        image = read_static("images/logo.jpeg")
+        self.respond(image, content_type="image/jpeg+xml")
 
     def handle_404(self):
         msg = """NOT FOUND!!!!!!!!"""
