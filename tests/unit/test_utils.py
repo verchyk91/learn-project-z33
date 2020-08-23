@@ -5,7 +5,6 @@ from utils import normalize_path
 from utils import read_static
 from utils import to_bytes
 
-from errors import NotFound
 
 @pytest.mark.unit
 def test_normalize_path():
