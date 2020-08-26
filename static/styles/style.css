@@ -1,5 +1,9 @@
 .title {
-    background #fd3fgs
+    background: #fd3fgs;
     font-size: 84px;
-    margin-bottom: 30px
+    margin-bottom: 30px;
+}
+
+.dir {
+    padding: 15px;
 }
