@@ -1,30 +1,32 @@
 import traceback
+from datetime import datetime
 from http.server import SimpleHTTPRequestHandler
 
 import settings
-from custom_types import Endpoint
+from custom_types import Url
 from errors import MethodNotAllowed
 from errors import NotFound
-from utils import get_content_type, get_name_from_qs
+from utils import get_content_type
+from utils import get_user_data
 from utils import read_static
 from utils import to_bytes
 
 
 class MyHttp(SimpleHTTPRequestHandler):
     def do_GET(self):
-        endpoint = Endpoint.from_path(self.path)
-        content_type = get_content_type(endpoint.file_name)
+        url = Url.from_path(self.path)
+        content_type = get_content_type(url.file_name)
 
         endpoints = {
             "/": [self.handle_static, ["index.html", "text/html"]],
             "/0/": [self.handle_zde, []],
-            "/hello/": [self.handle_hello, []],
-            "/i/": [self.handle_static, [f"images/{endpoint.file_name}", content_type]],
-            "/s/": [self.handle_static, [f"styles/{endpoint.file_name}", content_type]],
+            "/hello/": [self.handle_hello, [url]],
+            "/i/": [self.handle_static, [f"images/{url.file_name}", content_type]],
+            "/s/": [self.handle_static, [f"styles/{url.file_name}", content_type]],
         }
 
         try:
-            handler, args = endpoints[endpoint.normal]
+            handler, args = endpoints[url.normal]
             handler(*args)
         except (NotFound, KeyError):
             self.handle_404()
@@ -33,24 +35,24 @@ class MyHttp(SimpleHTTPRequestHandler):
         except Exception:
             self.handle_500()
 
-    def handle_hello(self, endpoint):
-        name = get_name_from_qs(endpoint.query_string)
+    def handle_hello(self, url):
+        user = get_user_data(url.query_string)
+        year = datetime.now().year - user.age
 
         content = f"""
         <html>
-        <head><title>Hello Page</title></head>
+        <head><title>Study Project Z33 :: Hello</title></head>
         <body>
-        <h1>Hello {name}!</h1>
-        <h1>You was born at {2020}!</h1>
+        <h1>Hello {user.name}!</h1>
+        <h1>You was born at {year}!</h1>
         <p>path: {self.path}</p>
 
         <form>
-            <label for="xxx-id">Your name:</label>
-            <input type="text" name="xxx" id="xxx-id">
-            <button type="submit">Greet</button>
-            <br><label for="xxx2-id">Your age:</label>
-            <input type="text" age="xxx" id="xxx2-id">
-            <button type="submit">Greet</button></br>
+            <label for="name-id">Your name:</label>
+            <input type="text" name="name" id="name-id">
+            <label for="age-id">Your age:</label>
+            <input type="text" name="age" id="age-id">
+            <button type="submit" id="greet-button-id">Greet</button>
         </form>
 
         </body>
@@ -84,6 +86,6 @@ class MyHttp(SimpleHTTPRequestHandler):
         self.send_response(code)
         self.send_header("Content-type", content_type)
         self.send_header("Content-length", str(len(payload)))
-        self.send_header("Cache-control", f'max-age={settings.CACHE_AGE}')
+        self.send_header("Cache-control", f"max-age={settings.CACHE_AGE}")
         self.end_headers()
         self.wfile.write(payload)

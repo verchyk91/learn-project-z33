@@ -5,9 +5,12 @@ verify_ssl = true
 
 [dev-packages]
 astpretty = "*"
+black = "==19.10b0"
 httpie = "*"
 ipython = "*"
+isort = "*"
 pudb = "*"
+pytest = "*"
 pytest-selenium = "*"
 
 [packages]
