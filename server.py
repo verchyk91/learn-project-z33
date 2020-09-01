@@ -21,8 +21,8 @@ class MyHttp(SimpleHTTPRequestHandler):
             "/": [self.handle_static, ["index.html", "text/html"]],
             "/0/": [self.handle_zde, []],
             "/hello/": [self.handle_hello, [url]],
-            "/i/": [self.handle_static, [f"images/{url.file_name}", content_type]],
-            "/s/": [self.handle_static, [f"styles/{url.file_name}", content_type]],
+            "/images/": [self.handle_static, [f"images/{url.file_name}", content_type]],
+            "/styles/": [self.handle_static, [f"styles/{url.file_name}", content_type]],
         }
 
         try:
