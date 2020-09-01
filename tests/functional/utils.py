@@ -10,7 +10,7 @@ def build_chrome():
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("headless")
 
-    browser = webdriver.Chrome(options=chrome_options)
+    browser = webdriver.Chrome(options=chrome_options, executable_path="/home/dmitry/chromedriver")
     browser.implicitly_wait(4)
 
     return browser

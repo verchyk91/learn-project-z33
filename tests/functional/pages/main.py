@@ -7,5 +7,5 @@ from .abstract import PageResource
 
 class MainPage(PageObject):
     progress = PageElement(By.CSS_SELECTOR, "progress#progress")
-    logo = PageResource("/i/logo.svg")
-    main_css = PageResource("/s/main.css")
+    logo = PageResource("/images/logo.svg")
+    main_css = PageResource("/styles/main.css")
