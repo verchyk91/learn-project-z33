@@ -1,22 +1,21 @@
-.title {
-    background: #fd3fgs;
-    font-size: 20px;
-    margin-bottom: 30px;
+body{
+
 }
 
-body {
-    text-align: justify;
-}
-
-dir {
+dir{
     background: #00FFFF;
     height: 50px;
 }
 
-#a12 {
-    background: black;
+a{
+    color: blue;
 }
 
-a {
-    color: green;
+#h1{
+    text-align: center;
+}
+
+.top{
+    margin-right: 20px;
+    text-align: center;
 }

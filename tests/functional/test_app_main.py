@@ -19,7 +19,7 @@ def test(browser, request, main_css):
 
 
 def validate_logo(page: MainPage):
-    assert "svg" in page.logo
+    assert "png" in page.logo
     assert "logo" in page.logo
 
 
@@ -29,12 +29,12 @@ def validate_css(page: MainPage, main_css: str):
 
 
 def validate_title(page: MainPage):
-    assert "Fireworks in Minsk" in page.title
+    assert "Фейерверки в Минске" in page.title
 
 
 def validate_content(page: MainPage):
     html = page.html
-    assert "Small" in html
+    assert "Каталог" in html
 
 
 def validate_progress(page: MainPage):
