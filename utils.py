@@ -3,8 +3,6 @@ from typing import AnyStr
 from urllib.parse import parse_qs
 
 import settings
-from consts import ANONYMOUS_USER
-from custom_types import User
 from errors import NotFound
 
 
@@ -59,22 +57,26 @@ def get_content_type(file_path: str) -> str:
     return content_type
 
 
-def get_user_data(query: str) -> User:
+def get_user_data(query: str):
     """
     Builds user's data against given query string
     :param query: string
     :return: user's data
     """
 
+    from custom_types import User
+
+    anonymous = User.default()
+
     try:
         key_value_pairs = parse_qs(query, strict_parsing=True)
     except ValueError:
-        return ANONYMOUS_USER
+        return anonymous
 
-    name_values = key_value_pairs.get("name", [ANONYMOUS_USER.name])
+    name_values = key_value_pairs.get("name", [anonymous.name])
     name = name_values[0]
 
-    age_values = key_value_pairs.get("age", [ANONYMOUS_USER.age])
+    age_values = key_value_pairs.get("age", [anonymous.age])
     age = age_values[0]
     if isinstance(age, str) and age.isdecimal():
         age = int(age)

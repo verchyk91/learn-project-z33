@@ -19,8 +19,8 @@ def test(browser, request, main_css):
 
 
 def validate_logo(page: MainPage):
-    assert "png" in page.logo
     assert "logo" in page.logo
+    assert "png" in page.logo
 
 
 def validate_css(page: MainPage, main_css: str):
