@@ -7,6 +7,9 @@ dir{
     height: 50px;
 }
 
+#hello{
+    margin-center: auto;
+}
 a{
     color: blue;
 }

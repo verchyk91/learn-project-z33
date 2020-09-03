@@ -44,10 +44,3 @@ def test():
         assert (
             got_endpoint == expected_endpoint
         ), f"mismatch for `{path}`: expected {expected_endpoint}, got {got_endpoint}"
-
-    for path, expected_endpoint in data_set.items():
-        got_endpoint = HttpRequest.from_path(path)
-
-        assert (
-            got_endpoint == expected_endpoint
-        ), f"mismatch for `{path}`: expected {expected_endpoint}, got {got_endpoint}"
