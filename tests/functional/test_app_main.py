@@ -1,4 +1,3 @@
-
 import pytest
 
 from tests.functional.pages import MainPage

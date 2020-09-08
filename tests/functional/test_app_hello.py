@@ -15,7 +15,7 @@ url = "http://localhost:8000/hello"
 
 @pytest.mark.functional
 @screenshot_on_failure
-def test_get(browser, request):
+def test_get(browser, request, users_data):
     page = HelloPage(browser, url)
 
     validate_title(page)
@@ -25,58 +25,31 @@ def test_get(browser, request):
 
 @pytest.mark.functional
 @screenshot_on_failure
-def test_get_qs(browser, request):
+def test_post(browser, request, users_data):
     name = "USER"
     age = 10
     year = date.today().year - age
 
-    anon_on_page = "Hello anonymous"
-    name_on_page = f"Hello {name}"
-    year_on_page = f"You was born at {year}!"
-
-    urls_contents = {
-        f"{url}": (anon_on_page,),
-        f"{url}?age=": (anon_on_page,),
-        f"{url}?age={age}": (anon_on_page, year_on_page),
-        f"{url}?name=": (anon_on_page,),
-        f"{url}?name=&age=": (anon_on_page,),
-        f"{url}?name={name}": (name_on_page,),
-    }
-
-    for test_url, content in urls_contents.items():
-        page = HelloPage(browser, test_url)
-
-        validate_structure(page)
-        assert page.input_name.text == ""
-        assert page.input_age.text == ""
-
-        validate_content(page, *content)
-
-
-@pytest.mark.functional
-@screenshot_on_failure
-def test_form(browser, request):
-    name = "USER"
-    age = 10
-    year = date.today().year - age
-
-    anon_on_page = "Hello anonymous"
+    anon_on_page = "Hello anonymous!"
     name_on_page = f"Hello {name}"
     year_on_page = f"You was born at {year}!"
 
     page = HelloPage(browser, url)
+
     validate_structure(page)
     validate_content(page, anon_on_page)
 
     set_input_name_value(page, name)
+    set_input_age_value(page, "")
     submit(page)
     validate_redirect(page, fr"hello/?")
-    validate_content(page, name_on_page)
+    validate_content(page, anon_on_page)
 
+    set_input_name_value(page, "")
     set_input_age_value(page, str(age))
     submit(page)
     validate_redirect(page, fr"hello/?")
-    validate_content(page, anon_on_page, year_on_page)
+    validate_content(page, anon_on_page)
 
     set_input_name_value(page, name)
     set_input_age_value(page, str(age))
@@ -120,11 +93,15 @@ def validate_redirect(page: HelloPage, url: str):
 
 
 def set_input_name_value(page: HelloPage, value: str):
-    page.input_name.send_keys(value)
+    page.input_name.clear()
+    if value:
+        page.input_name.send_keys(value)
 
 
 def set_input_age_value(page: HelloPage, value: str):
-    page.input_age.send_keys(value)
+    page.input_age.clear()
+    if value:
+        page.input_age.send_keys(value)
 
 
 def submit(page: HelloPage):
