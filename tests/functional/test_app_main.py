@@ -13,7 +13,7 @@ def test(browser, request, main_css):
 
     validate_title(page)
     validate_content(page)
-    validate_progress(page)
+    #validate_progress(page)
     validate_logo(page)
     validate_css(page, main_css)
 

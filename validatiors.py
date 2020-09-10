@@ -5,7 +5,7 @@ def validate_name(value: str) -> None:
     if not value.isalnum() or value.isdigit():
         raise ValueError("MUST contain letters")
 
-    lmin, lmax = 3, 20
+    lmin, lmax = 2, 20
     if not lmin <= len(value) <= lmax:
         raise ValueError(f"MUST have length between {lmin}..{lmax} chars")
 
