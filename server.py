@@ -4,6 +4,7 @@ from http.server import SimpleHTTPRequestHandler
 
 from jinja2 import Template
 
+from math import fabs
 from consts import CSS_CLASS_ERROR
 from consts import USERS_DATA
 from custom_types import HttpRequest
@@ -88,6 +89,9 @@ class MyHttp(SimpleHTTPRequestHandler):
         name_new = name_saved = saved_user.name
 
         year = date.today().year - age_saved
+
+        if year < 0:
+            year = (str(int(fabs(year))) + " before the birth of Christ")
 
         if new_user.errors:
             if "name" in new_user.errors:

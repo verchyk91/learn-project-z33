@@ -1,6 +1,5 @@
 from datetime import date
 
-from math import fabs
 import pytest
 from selenium.common.exceptions import TimeoutException
 from selenium.webdriver.common.keys import Keys
@@ -30,9 +29,6 @@ def test_post(browser, request, users_data):
     name = "USER"
     age = 10
     year = date.today().year - age
-
-    if year < 0:
-        year = (str(fabs(int(year))) + " before the birth of Christ")
 
     anon_on_page = "Hello anonymous!"
     name_on_page = f"Hello {name}"
@@ -110,3 +106,4 @@ def set_input_age_value(page: HelloPage, value: str):
 
 def submit(page: HelloPage):
     page.button_greet.send_keys(Keys.RETURN)
+
