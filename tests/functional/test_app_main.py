@@ -14,13 +14,13 @@ def test(browser, request, main_css):
     validate_title(page)
     validate_content(page)
     #validate_progress(page)
-    validate_logo(page)
-    validate_css(page, main_css)
+    #validate_logo(page)
+    #validate_css(page, main_css)
 
 
 def validate_logo(page: MainPage):
-    assert "logo" in page.logo
-    assert "png" in page.logo
+    assert "svg" in page.logo
+    assert "Z33" in page.logo
 
 
 def validate_css(page: MainPage, main_css: str):
@@ -40,6 +40,6 @@ def validate_content(page: MainPage):
 def validate_progress(page: MainPage):
     assert page.progress
     assert page.progress.tag_name == "progress"
-    assert page.progress.text == "42%"
+    assert page.progress.text == "61%"
     assert page.progress.get_attribute("max") == "26"
-    assert page.progress.get_attribute("value") == "11"
+    assert page.progress.get_attribute("value") == "16"

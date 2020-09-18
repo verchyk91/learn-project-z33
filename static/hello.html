@@ -1,27 +1,34 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 <head>
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
   <title>Study Project Z33 :: Hello</title>
-  <link rel="stylesheet" type="text/css" href="/styles/hello.css">
+  <link href="/s/hello.css" rel="stylesheet" type="text/css">
+  <link href="/s/theme_{{ theme }}.css" rel="stylesheet" type="text/css">
 </head>
 <body>
-<h1>Hello {{name_saved}}!</h1>
-<h1>You was born at {{year}}!</h1>
-
-<div class="f">
+<form method="post" action="/theme">
+  <button type="submit">Switch theme</button>
+</form>
+<hr>
+<h1>Hello {{ name_saved or "anonymous" }}!</h1>
+{% if year %}
+  <h1>You was born at {{ year }}!</h1>
+{% endif %}
+<div class="form-container">
   <form action="/hello-update" method="post">
-    <div class="g">
-      <label class="{{class_for_name}}" for="name-id" style="grid-area: gi-name-label">{{label_for_name}}</label>
-      <input id="name-id" name="name" style="grid-area: gi-name-input" type="text" value="{{name_new}}">
-
-      <label class="{{class_for_age}}" for="age-id" style="grid-area: gi-age-label">{{label_for_age}}</label>
-      <input id="age-id" name="age" style="grid-area: gi-age-input" type="text" value="{{age_new}}">
-
+    <div class="greet-form">
+      <label class="{{ class_for_name }}" for="name-id" style="grid-area: gi-name-label">{{ label_for_name }}</label>
+      <input placeholder="anonymous" id="name-id" name="name" style="grid-area: gi-name-input" type="text" value="{{ name_new }}">
+      <label class="{{ class_for_age }}" for="age-id" style="grid-area: gi-age-label">{{ label_for_age }}</label>
+      <input placeholder="1488" id="age-id" name="age" style="grid-area: gi-age-input" type="text" value="{{ age_new }}">
       <button id="greet-button-id" style="grid-area: gi-submit" type="submit">Greet</button>
-      <button id="reset-button-id" style="grid-area: gin-submit" type="submit">Reset</button>
     </div>
   </form>
 </div>
-
+<div class="form-container">
+  <form action="/hello-reset" method="post">
+    <button id="reset-button-id" style="width: 67%" type="submit">Reset</button>
+  </form>
+</div>
 </body>
 </html>
