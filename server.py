@@ -2,7 +2,7 @@ import traceback
 from datetime import date
 from http.server import SimpleHTTPRequestHandler
 from typing import Optional
-from math import fabs
+
 from jinja2 import Template
 
 import consts
@@ -91,8 +91,7 @@ class MyHttp(SimpleHTTPRequestHandler):
 
         year = date.today().year - age_saved
         if year < 0:
-            year = (str(fabs(year)) + " before Christ")
-
+            year = str(abs(year)) + " before Christ"
 
         if new_user.errors:
             if "name" in new_user.errors:
