@@ -1,3 +1,4 @@
+
 import pytest
 
 from tests.functional.pages import MainPage
@@ -13,9 +14,9 @@ def test(browser, request, main_css):
 
     validate_title(page)
     validate_content(page)
-    # validate_progress(page)
-    # validate_logo(page)
-    # validate_css(page, main_css)
+    validate_progress(page)
+    validate_logo(page)
+    validate_css(page, main_css)
 
 
 def validate_logo(page: MainPage):
@@ -29,17 +30,17 @@ def validate_css(page: MainPage, main_css: str):
 
 
 def validate_title(page: MainPage):
-    assert "Фейерверки в Минске" in page.title
+    assert "Study Project Z33" in page.title
 
 
 def validate_content(page: MainPage):
     html = page.html
-    assert "Каталог" in html
+    assert "Progress" in html
 
 
 def validate_progress(page: MainPage):
     assert page.progress
     assert page.progress.tag_name == "progress"
-    assert page.progress.text == "61%"
+    assert page.progress.text == "69%"
     assert page.progress.get_attribute("max") == "26"
-    assert page.progress.get_attribute("value") == "16"
+    assert page.progress.get_attribute("value") == "18"
