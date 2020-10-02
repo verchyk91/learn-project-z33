@@ -2,7 +2,6 @@ from typing import NoReturn
 
 from framework.custom_types import HttpRequest
 from framework.errors import MethodNotAllowed
-from framework.errors import Redirect
 from framework.utils import get_theme
 from framework.utils import switch_theme
 

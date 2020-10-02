@@ -17,8 +17,8 @@ pytest-selenium = "*"
 [packages]
 delorean = "*"
 django = "*"
+dynaconf = {extras = ["yaml"], version = "*"}
 jinja2 = "*"
-flask = "*"
 
 [requires]
 python_version = "3.8"

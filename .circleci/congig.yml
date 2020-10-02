@@ -53,12 +53,6 @@ jobs:
           name: Performing Tests
           command: |
             make test
-      - store_artifacts:
-          path: tests/functional/artifacts/
-          destination: tr1
-      - store_test_results:
-          path: tests/functional/artifacts/
-
 workflows:
   main:
     jobs:

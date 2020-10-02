@@ -4,8 +4,8 @@ from typing import List
 from typing import Optional
 from typing import Union
 
-from framework.validatiors import validate_age
-from framework.validatiors import validate_name
+from framework.validators import validate_age
+from framework.validators import validate_name
 
 
 @dataclasses.dataclass
