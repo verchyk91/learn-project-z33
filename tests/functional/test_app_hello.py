@@ -7,7 +7,7 @@ from selenium.webdriver.remote.webelement import WebElement
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
 
-from tests.functional.pages import HelloPage
+from tests.functional.pages.hello import HelloPage
 from tests.functional.utils import screenshot_on_failure
 
 url = "http://localhost:8000/hello"

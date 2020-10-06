@@ -34,6 +34,7 @@
 .secrets.*
 .spyderproject
 .spyproject
+.static
 .tox/
 .venv
 .webassets-cache
@@ -70,8 +71,8 @@ pip-wheel-metadata/
 profile_default/
 sdist/
 share/python-wheels/
-storage/*.json
-storage/*.txt
+**/storage/*.json
+**/storage/*.txt
 target/
 var/
 venv.bak/

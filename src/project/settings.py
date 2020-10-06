@@ -1,13 +1,18 @@
+import os
 from pathlib import Path
 
-BASE_DIR = Path(__file__).resolve().parent.parent
+import dj_database_url
+from dynaconf import settings as _ds
+
+REPO_DIR = Path(__file__).resolve().parent.parent.parent
+BASE_DIR = REPO_DIR / "src"
+PROJECT_DIR = BASE_DIR / "project"
 
 SECRET_KEY = "47^z241-=2*_qo6z@7=1x6kq%t)5@s)#7ov_sa!7*za&i#22-!"
 
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 INSTALLED_APPS = [
     "django.contrib.admin",
@@ -18,10 +23,12 @@ INSTALLED_APPS = [
     "django.contrib.staticfiles",
     # -------------------------
     "applications.hello.apps.HelloConfig",
+    "applications.home.apps.HomeConfig",
 ]
 
 MIDDLEWARE = [
     "django.middleware.security.SecurityMiddleware",
+    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
     "django.middleware.csrf.CsrfViewMiddleware",
@@ -50,17 +57,13 @@ TEMPLATES = [
 
 WSGI_APPLICATION = "project.wsgi.application"
 
-
-# Database
-# https://docs.djangoproject.com/en/3.1/ref/settings/#databases
+database_url = _ds.DATABASE_URL
+if _ds.ENV_FOR_DYNACONF == "heroku":
+    database_url = os.getenv("DATABASE_URL")
 
 DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
-    }
+    "default": dj_database_url.parse(database_url),
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -80,7 +83,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.1/topics/i18n/
 
@@ -94,8 +96,10 @@ USE_L10N = True
 
 USE_TZ = True
 
-
-# Static files (CSS, JavaScript, Images)
-# https://docs.djangoproject.com/en/3.1/howto/static-files/
-
-STATIC_URL = "/static/"
+STATIC_URL = "/s/"
+STATICFILES_DIRS = [
+    PROJECT_DIR / "static",
+]
+STATIC_ROOT = REPO_DIR / ".static"
+if not DEBUG:
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
