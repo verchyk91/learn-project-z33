@@ -1,6 +1,6 @@
 from django import forms
 
-from src.applications.hello.forms.fields import NameField
+from applications.hello.forms.fields import NameField
 
 
 class HelloForm(forms.Form):

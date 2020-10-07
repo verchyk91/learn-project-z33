@@ -3,7 +3,7 @@ from typing import Dict
 
 from django.http import HttpRequest
 
-from src.applications.hello.forms import HelloForm
+from applications.hello.forms import HelloForm
 
 
 def build_context_for_hello(request: HttpRequest) -> Dict:

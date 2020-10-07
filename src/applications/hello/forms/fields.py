@@ -1,6 +1,6 @@
 from django.forms import CharField
 
-from src.applications.hello.forms.validatiors import validate_name
+from applications.hello.forms.validatiors import validate_name
 
 
 class NameField(CharField):
