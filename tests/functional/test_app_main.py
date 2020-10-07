@@ -1,6 +1,6 @@
 import pytest
 
-from tests.functional.pages.hello import MainPage
+from tests.functional.pages.main import MainPage
 from tests.functional.utils import screenshot_on_failure
 
 url = "http://localhost:8000"
