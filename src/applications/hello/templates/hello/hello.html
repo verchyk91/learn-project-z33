@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <title>Study Project Z33 :: Hello</title>
+  <title>app "Hello"</title>
   <style>
     :root {
       --padding-left: 30px;
@@ -76,7 +76,7 @@
   <link href="{% static 'styles/theme_dark.css' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
-<form action="/theme" method="post">
+<form action={% url "hello:theme" %} method="post">
   <button type="submit">Switch theme</button>
 </form>
 <hr>
@@ -114,3 +114,5 @@
 </div>
 </body>
 </html>
+
+

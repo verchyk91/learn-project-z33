@@ -10,4 +10,5 @@ urlpatterns = [
     path("", GreetView.as_view(), name="index"),
     path("update/", GreetView.as_view(), name="update"),
     path("reset/", ResetView.as_view(), name="reset"),
+    path("theme/", ResetView.as_view(), name="theme"),
 ]
