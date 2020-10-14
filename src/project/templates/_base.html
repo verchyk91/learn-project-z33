@@ -1,0 +1,28 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Z33 :: {% block title %}{% endblock %}</title>
+  <link href="{% static 'styles/main.css' %}" rel="stylesheet" type="text/css">
+  <link href="{% static 'images/logo.png' %}" rel="shortcut icon" type="image/png+xml">
+  {% block head %}{% endblock %}
+</head>
+<body>
+<header>
+  <div class="flat">
+    <a href="/"><img alt="Logo" height="100rem" src="{% static 'images/logo.png' %}"></a>
+    <a href="/"><h1>Salut</h1></a>
+  </div>
+  <nav>
+    <p><a href="{% url "home:index" %}"><span>About</span></a></p>
+    <p><a href="{% url "hello:index" %}"><span>"Hello" app</span></a></p>
+  </nav>
+  <form action="/theme" method="post">
+    <button type="submit">Switch theme</button>
+  </form>
+</header>
+<main>
+    {% block main %}{% endblock %}
+</main>
+</body>
+</html>

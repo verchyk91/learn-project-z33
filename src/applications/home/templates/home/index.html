@@ -1,24 +1,8 @@
+{% extends "_base.html" %}
 {% load static %}
-<html>
-<head>
-  <title>Фейерверки в Минске</title>
-  <link href="{% static 'styles/main.css' %}" rel="stylesheet" type="text/css">
-  <link href="{% static 'images/logo.svg' %}" rel="shortcut icon" type="image/svg+xml">
-</head>
-<body>
-<header>
-  <div class="flat">
-    <a href="/"><img alt="Logo" height="100rem" src="{% static 'images/logo.png' %}"></a>
-    <a href="/"><h1>Salut</h1></a>
-  </div>
-  <nav>
-    <p><a href="{% url "home:index" %}"><span>About</span></a></p>
-    <p><a href="{% url "hello:index" %}"><span>"Hello" app</span></a></p>
-  </nav>
-</header>
-	<div class="logo">
-		<h1>Фейерверки в Минске</h1>
-	</div>
+{% block title %}Home page{% endblock %}
+{% block main %}
+<article>
 	<div class="top">
 		<ul><a class="main" href="/"><b>Главная</b></a>
 		<a class="catalog" href="/catalog"><b>Каталог</b></a>
@@ -32,5 +16,5 @@
 		<input type="text" name="товар" id="search">
 		<button type="submit" id="search-button-id">Поиск</button>
 	</div>
-</body>
-</html>
+</article>
+{% endblock %}
