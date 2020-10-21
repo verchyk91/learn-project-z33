@@ -5,7 +5,6 @@
   <link href="{% static 'hello/style.css' %}" rel="stylesheet" type="text/css">
 {% endblock %}
 {% block main %}
-{% load static %}
   <hr>
   <h1>Hello {{ name_saved }}!</h1>
   {% if year %}
@@ -40,8 +39,4 @@
       {% csrf_token %}
     </form>
   </div>
-
 {% endblock %}
-
-
-
