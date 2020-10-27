@@ -1,5 +1,2 @@
-web: make run
-release: python src/manage.py
-
-#web: pipenv run python src/manage.py
-
+web: make run-prod
+release: python src/manage.py migrate
