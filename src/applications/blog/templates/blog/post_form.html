@@ -1,0 +1,10 @@
+{% extends "blog/_base.html" %}
+{% load static %}
+{% block title %}New Blog Post{% endblock %}
+{% block blog %}
+  <form action="{% url 'blog:new-post' %}" method="post">
+    {{ form.as_p }}
+    {% csrf_token %}
+    <button type="submit">Create new post</button>
+  </form>
+{% endblock %}

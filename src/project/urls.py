@@ -11,5 +11,7 @@ urlpatterns = [
     path("", include("applications.home.urls")),
     path("admin/", admin.site.urls),
     path("hello/", include("applications.hello.urls")),
+    path("blog/", include("applications.blog.urls")),
     path("sentry-debug/", trigger_error),
+
 ]
